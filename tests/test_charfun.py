@@ -9,11 +9,13 @@ Dependencias: unittest, parameterized
 import unittest
 from parameterized import parameterized
 from app.scripts.charfun import esPalindromo
+import random
+import string
 
 class TestCharfun(unittest.TestCase):
     """
     Clase de pruebas para la función esPalindromo.
-    Contiene casos de prueba para diversos escenarios.
+    Contiene casos de prueba para diversos escenarios, incluyendo palíndromos generados aleatoriamente.
     """
 
     @parameterized.expand([
@@ -58,6 +60,30 @@ class TestCharfun(unittest.TestCase):
     def test_combinaciones_unicode(self, name, cadena, esperado):
         """Test de cadenas con caracteres Unicode"""
         self.assertEqual(esPalindromo(cadena), esperado)
+
+    def generar_palindromo_aleatorio(self, longitud=10):
+        """
+        Genera un palíndromo aleatorio.
+        Toma una cadena de texto aleatoria y la convierte en palíndromo.
+        
+        :param longitud: longitud de la cadena aleatoria.
+        :return: un palíndromo generado aleatoriamente.
+        """
+        # Generar una cadena aleatoria
+        letras = string.ascii_lowercase
+        cadena = ''.join(random.choice(letras) for _ in range(longitud))
+        
+        # Crear un palíndromo añadiendo la cadena invertida a la original
+        palindromo = cadena + cadena[::-1]
+        return palindromo
+
+    def test_palindromos_aleatorios(self):
+        """
+        Genera varios palíndromos aleatorios y los prueba para asegurar que la función esPalindromo los detecte correctamente.
+        """
+        for _ in range(22):  # Genera y prueba 10 palíndromos aleatorios
+            palindromo = self.generar_palindromo_aleatorio()
+            self.assertTrue(esPalindromo(palindromo), f"El palíndromo generado {palindromo} no fue reconocido correctamente.")
 
 if __name__ == "__main__":
     unittest.main()
