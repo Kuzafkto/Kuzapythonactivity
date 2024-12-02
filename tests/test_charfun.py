@@ -81,7 +81,7 @@ class TestCharfun(unittest.TestCase):
         """
         Genera varios palíndromos aleatorios y los prueba para asegurar que la función esPalindromo los detecte correctamente.
         """
-        for _ in range(22):  # Genera y prueba 10 palíndromos aleatorios
+        for _ in range(22):  # Genera y prueba 22 palíndromos aleatorios
             palindromo = self.generar_palindromo_aleatorio()
             self.assertTrue(esPalindromo(palindromo), f"El palíndromo generado {palindromo} no fue reconocido correctamente.")
 
